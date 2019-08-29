@@ -168,8 +168,7 @@ iters <- 0
 for(profile_id in profile_ids_vec){
   current_data = subset(selected_data, profile.id == profile_id)
   
-  if(requireNamespace("fpop", quietly = TRUE))
-      fpop_res <- fpop::Fpop(current_data$logratio, iters + 1)
+  fpop_res <- fpop::Fpop(current_data$logratio, iters + 1)
   
   cpt_res <- changepoint::cpt.mean(data = current_data$logratio, 
                         penalty = "Manual", 
@@ -224,7 +223,6 @@ for(i in 1:nrow(data.counts)){
   
   timing <- microbenchmark(
   "fpop"={
-    if(requireNamespace("fpop", quietly = TRUE))
       fpop::Fpop(current_data$logratio, 1)
     },
   "changepoint"={
@@ -295,7 +293,6 @@ for(penalty in 10^(-10:10)){
         opfit <- opart::opart_gaussian(selected_data, penalty)
     }, 
     "fpop"={
-      if(requireNamespace("fpop", quietly = TRUE))
         fpfit <- fpop::Fpop(selected_data, penalty)
     },
     "changepoint"={
